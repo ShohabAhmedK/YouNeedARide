@@ -8,7 +8,6 @@ import { ScreenWrapper } from '../../../components/ScreenWrapper';
 import { Button } from '../../../components/Button';
 import { MapViewComponent } from '../../home/components/MapViewComponent';
 import { useCancelRide } from '../../../api/hooks/useRideApi';
-import { onRideStatusUpdate } from '../../../api/socket';
 import { colors } from '../../../theme/colors';
 import { fontFamily, fontSize } from '../../../theme/typography';
 import { MainStackParamList } from '../../../types/navigation';
@@ -29,11 +28,10 @@ export const FindingDriverScreen: React.FC = () => {
   useEffect(() => {
     scale.value = withRepeat(withTiming(1.4, { duration: 900 }), -1, true);
 
-    onRideStatusUpdate((data) => {
-      if (data.rideId === route.params.rideId && data.status === 'DRIVER_ASSIGNED') {
-        navigation.replace('RideTracking', { rideId: route.params.rideId });
-      }
-    });
+    const timer = setTimeout(() => {
+      navigation.replace('RideTracking', { rideId: route.params.rideId });
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleCancel = () => {

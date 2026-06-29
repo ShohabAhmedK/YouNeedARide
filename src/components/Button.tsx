@@ -38,9 +38,9 @@ interface ButtonProps {
 }
 
 const sizeMap: Record<Size, { height: number; fontSize: number }> = {
-  sm: { height: hp('5%'), fontSize: fontSize.sm },
-  md: { height: hp('6.5%'), fontSize: fontSize.md },
-  lg: { height: hp('7.5%'), fontSize: fontSize.lg },
+  sm: { height: hp('4%'), fontSize: fontSize.sm },
+  md: { height: hp('5%'), fontSize: fontSize.md },
+  lg: { height: hp('6%'), fontSize: fontSize.lg },
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -116,7 +116,10 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-const variantStyles: Record<Variant, { container: ViewStyle; text: TextStyle }> = {
+const variantStyles: Record<
+  Variant,
+  { container: ViewStyle; text: TextStyle }
+> = {
   primary: {
     container: { backgroundColor: colors.primary },
     text: { color: colors.white },

@@ -1,8 +1,17 @@
 import React, { useRef, useState } from 'react';
-import { View, FlatList, StyleSheet, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { ScreenWrapper } from '../../../components/ScreenWrapper';
 import { Button } from '../../../components/Button';
 import { OnboardingSlide } from '../components/OnboardingSlide';
@@ -43,12 +52,12 @@ export const OnboardingScreen: React.FC = () => {
     if (activeIndex < slides.length - 1) {
       listRef.current?.scrollToIndex({ index: activeIndex + 1 });
     } else {
-      navigation.replace('RoleSelect');
+      navigation.replace('Login');
     }
   };
 
   return (
-    <ScreenWrapper>
+    <View style={{ flex: 1 }}>
       <FlatList
         ref={listRef}
         data={slides}
@@ -58,7 +67,11 @@ export const OnboardingScreen: React.FC = () => {
         keyExtractor={(_, i) => String(i)}
         onMomentumScrollEnd={handleScroll}
         renderItem={({ item }) => (
-          <OnboardingSlide image={item.image} title={item.title} subtitle={item.subtitle} />
+          <OnboardingSlide
+            image={item.image}
+            title={item.title}
+            subtitle={item.subtitle}
+          />
         )}
       />
       <View style={styles.footer}>
@@ -67,7 +80,7 @@ export const OnboardingScreen: React.FC = () => {
           <Button
             title="Skip"
             variant="ghost"
-            onPress={() => navigation.replace('RoleSelect')}
+            onPress={() => navigation.replace('Login')}
             style={styles.skipButton}
           />
           <Button
@@ -77,7 +90,7 @@ export const OnboardingScreen: React.FC = () => {
           />
         </View>
       </View>
-    </ScreenWrapper>
+    </View>
   );
 };
 
@@ -85,6 +98,9 @@ const styles = StyleSheet.create({
   footer: {
     paddingHorizontal: wp('6%'),
     paddingBottom: hp('3%'),
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
   },
   buttonRow: {
     flexDirection: 'row',

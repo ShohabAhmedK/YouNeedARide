@@ -25,7 +25,7 @@ export const RateDriverScreen: React.FC = () => {
   const handleSubmit = () => {
     rateDriver.mutate(
       { rideId: route.params.rideId, rating, review },
-      { onSuccess: () => navigation.navigate('BottomTabs') },
+      { onSuccess: () => navigation.navigate('HomeMapScreen') },
     );
   };
 

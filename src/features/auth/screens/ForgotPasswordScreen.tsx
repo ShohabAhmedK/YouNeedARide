@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { ScreenWrapper } from '../../../components/ScreenWrapper';
 import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
@@ -25,7 +28,11 @@ export const ForgotPasswordScreen: React.FC = () => {
   const navigation = useNavigation<Nav>();
   const forgotPassword = useForgotPassword();
 
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: { email: '' },
   });
@@ -40,16 +47,36 @@ export const ForgotPasswordScreen: React.FC = () => {
 
   return (
     <ScreenWrapper withKeyboardAvoiding>
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-        <AuthHeader title="Forgot Password" subtitle="Enter your email to receive a reset code" />
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
+        <AuthHeader
+          title="Forgot Password"
+          subtitle="Enter your email to receive a reset code"
+        />
         <Controller
           control={control}
           name="email"
           render={({ field: { value, onChange } }) => (
-            <Input label="Email" placeholder="you@example.com" leftIcon="email" autoCapitalize="none" keyboardType="email-address" value={value} onChangeText={onChange} error={errors.email?.message} />
+            <Input
+              label="Email"
+              placeholder="you@example.com"
+              leftIcon="email"
+              autoCapitalize="none"
+              keyboardType="email-address"
+              value={value}
+              onChangeText={onChange}
+              error={errors.email?.message}
+            />
           )}
         />
-        <Button title="Send Reset Code" onPress={handleSubmit(onSubmit)} loading={forgotPassword.isPending} style={styles.button} />
+        <Button
+          title="Send Reset Code"
+          onPress={handleSubmit(onSubmit)}
+          loading={forgotPassword.isPending}
+          style={styles.button}
+        />
       </ScrollView>
     </ScreenWrapper>
   );

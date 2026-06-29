@@ -3,7 +3,6 @@ import { Location, Ride } from './ride';
 export type AuthStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
-  RoleSelect: undefined;
   Login: undefined;
   Register: undefined;
   ForgotPassword: undefined;
@@ -31,10 +30,14 @@ export type PaymentStackParamList = {
 
 export type MainStackParamList = {
   BottomTabs: undefined;
+  HomeMapScreen: undefined;
   RateDriver: { rideId: string };
   RideDetail: { rideId: string };
   Chat: { rideId: string; driverName: string };
   EditProfile: undefined;
+  ProfileScreen: undefined;
+  Notification: undefined;
+  Loyalty: undefined;
   Support: undefined;
   Faq: undefined;
 } & BookingStackParamList &

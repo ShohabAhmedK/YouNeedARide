@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Button } from '../../../components/Button';
 import { colors } from '../../../theme/colors';
+import { fontFamily, fontSize } from '../../../theme/typography';
+import { radius } from '../../../theme/spacing';
 
 interface SocialLoginButtonsProps {
   onGooglePress?: () => void;
@@ -14,31 +15,44 @@ export const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
   onGooglePress,
   onFacebookPress,
 }) => (
-  <View style={styles.row}>
-    <Button
-      title="Google"
-      variant="outline"
+  <View style={styles.column}>
+    <TouchableOpacity
+      style={styles.row}
       onPress={onGooglePress || (() => {})}
-      leftIcon={<Icon name="logo-google" size={wp('5%')} color={colors.textPrimary} />}
-      style={styles.button}
-    />
-    <Button
-      title="Facebook"
-      variant="outline"
+      accessibilityLabel="Continue with Google"
+      accessibilityRole="button"
+    >
+      <Icon name="logo-google" size={wp('5.5%')} color="#EA4335" />
+      <Text style={styles.text}>Continue with Google</Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.row}
       onPress={onFacebookPress || (() => {})}
-      leftIcon={<Icon name="logo-facebook" size={wp('5%')} color={colors.textPrimary} />}
-      style={styles.button}
-    />
+      accessibilityLabel="Continue with Facebook"
+      accessibilityRole="button"
+    >
+      <Icon name="logo-facebook" size={wp('5.5%')} color="#1877F2" />
+      <Text style={styles.text}>Continue with Facebook</Text>
+    </TouchableOpacity>
   </View>
 );
 
 const styles = StyleSheet.create({
+  column: {
+    gap: hp('1.5%'),
+  },
   row: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: wp('3%'),
-    marginTop: hp('2%'),
+    height: hp('5.5%'),
+    borderRadius: radius.md,
+    backgroundColor: colors.backgroundSecondary,
   },
-  button: {
-    flex: 1,
+  text: {
+    fontFamily: fontFamily.semiBold,
+    fontSize: fontSize.md,
+    color: colors.textPrimary,
   },
 });

@@ -1,21 +1,31 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import FastImage from 'react-native-fast-image';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { ScreenWrapper } from '../../../components/ScreenWrapper';
 import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 import { Divider } from '../../../components/Divider';
-import { AuthHeader } from '../components/AuthHeader';
 import { SocialLoginButtons } from '../components/SocialLoginButtons';
-import { useLogin } from '../../../api/hooks/useAuthApi';
 import { useAuthStore } from '../../../store/authStore';
 import { colors } from '../../../theme/colors';
 import { fontFamily, fontSize } from '../../../theme/typography';
+import { radius } from '../../../theme/spacing';
 import { AuthStackParamList } from '../../../types/navigation';
 
 type Nav = StackNavigationProp<AuthStackParamList, 'Login'>;
@@ -29,28 +39,55 @@ type FormData = z.infer<typeof schema>;
 
 export const LoginScreen: React.FC = () => {
   const navigation = useNavigation<Nav>();
-  const login = useLogin();
-  const setRider = useAuthStore((s) => s.setRider);
-  const setToken = useAuthStore((s) => s.setToken);
+  const insets = useSafeAreaInsets();
+  const setRider = useAuthStore(s => s.setRider);
+  const setToken = useAuthStore(s => s.setToken);
 
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: 'test@test.com', password: '123456' },
   });
 
   const onSubmit = (data: FormData) => {
-    login.mutate(data, {
-      onSuccess: (res) => {
-        setRider(res.rider);
-        setToken(res.token);
-      },
+    setRider({
+      id: 'alpha-rider-1',
+      fullName: 'Alpha Rider',
+      email: data.email,
+      phone: '03118296802',
+      savedLocations: [],
+      loyaltyRideCount: 0,
+      createdAt: new Date().toISOString(),
     });
+    setToken('alpha-static-token');
   };
 
   return (
-    <ScreenWrapper withKeyboardAvoiding>
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-        <AuthHeader title="Welcome Back" subtitle="Login to continue your ride" />
+    <ScreenWrapper withKeyboardAvoiding statusBarStyle="light-content">
+      <View
+        style={[
+          styles.hero,
+          { marginTop: -insets.top, paddingTop: insets.top },
+        ]}
+      >
+        <FastImage
+          source={require('../../../assets/images/logo.png')}
+          style={styles.logo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </View>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
+        <Text style={styles.title}>Sign in to your account</Text>
+        <Text style={styles.subtitle}>
+          Enter your email and password to log in
+        </Text>
+
         <Controller
           control={control}
           name="email"
@@ -58,7 +95,7 @@ export const LoginScreen: React.FC = () => {
             <Input
               label="Email"
               placeholder="you@example.com"
-              leftIcon="email"
+              variant="filled"
               autoCapitalize="none"
               keyboardType="email-address"
               value={value}
@@ -67,6 +104,7 @@ export const LoginScreen: React.FC = () => {
             />
           )}
         />
+
         <Controller
           control={control}
           name="password"
@@ -74,7 +112,7 @@ export const LoginScreen: React.FC = () => {
             <Input
               label="Password"
               placeholder="Enter password"
-              leftIcon="lock"
+              variant="filled"
               isPassword
               value={value}
               onChangeText={onChange}
@@ -82,21 +120,22 @@ export const LoginScreen: React.FC = () => {
             />
           )}
         />
+
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.forgotText}>Forgot Password?</Text>
+          <Text style={styles.forgotText}>Forgot Password ?</Text>
         </TouchableOpacity>
         <Button
           title="Login"
           onPress={handleSubmit(onSubmit)}
-          loading={login.isPending}
+          size="lg"
           style={styles.loginButton}
         />
-        <Divider label="OR" style={styles.divider} />
+        <Divider label="Or" style={styles.divider} />
         <SocialLoginButtons />
         <View style={styles.registerRow}>
           <Text style={styles.registerText}>Don't have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.registerLink}>Register</Text>
+            <Text style={styles.registerLink}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -105,23 +144,54 @@ export const LoginScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  hero: {
+    backgroundColor: colors.primary,
+    height: hp('25%'),
+    borderBottomLeftRadius: radius.xl,
+    borderBottomRightRadius: radius.xl,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: wp('38%'),
+    height: wp('38%'),
+  },
   container: {
     paddingHorizontal: wp('6%'),
-    paddingTop: hp('8%'),
+    paddingTop: hp('2%'),
     paddingBottom: hp('4%'),
+  },
+  title: {
+    fontFamily: fontFamily.gilroySemiBold,
+    fontWeight: '600',
+    fontSize: 24,
+    lineHeight: 29,
+    letterSpacing: 24 * -0.04,
+    textAlign: 'center',
+    color: colors.textPrimary,
+  },
+  subtitle: {
+    fontFamily: fontFamily.gilroyMedium,
+    fontWeight: '500',
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 12 * -0.04,
+    color: colors.textSecondary,
+    marginTop: hp('0.8%'),
+    marginBottom: hp('2%'),
   },
   forgotText: {
     alignSelf: 'flex-end',
     fontFamily: fontFamily.medium,
     fontSize: fontSize.sm,
     color: colors.primary,
-    marginBottom: hp('2%'),
+    marginBottom: hp('3%'),
   },
   loginButton: {
-    marginTop: hp('1%'),
+    // marginTop: hp('1%'),
   },
   divider: {
-    marginVertical: hp('3%'),
+    marginVertical: hp('2%'),
   },
   registerRow: {
     flexDirection: 'row',
@@ -136,6 +206,6 @@ const styles = StyleSheet.create({
   registerLink: {
     fontFamily: fontFamily.semiBold,
     fontSize: fontSize.sm,
-    color: colors.primary,
+    color: colors.accentBlue,
   },
 });

@@ -5,6 +5,9 @@ export const fontFamily = {
   medium: 'Poppins-Medium',
   semiBold: 'Poppins-SemiBold',
   bold: 'Poppins-Bold',
+  gilroyRegular: 'Gilroy-Regular',
+  gilroyMedium: 'Gilroy-Medium',
+  gilroySemiBold: 'Gilroy-SemiBold',
 };
 
 export const fontSize = {

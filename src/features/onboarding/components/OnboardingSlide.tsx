@@ -14,24 +14,29 @@ interface OnboardingSlideProps {
   subtitle: string;
 }
 
-export const OnboardingSlide: React.FC<OnboardingSlideProps> = ({ image, title, subtitle }) => (
+export const OnboardingSlide: React.FC<OnboardingSlideProps> = ({
+  image,
+  title,
+  subtitle,
+}) => (
   <View style={styles.slide}>
-    <FastImage source={image} style={styles.image} resizeMode={FastImage.resizeMode.contain} />
-    <Text style={styles.title}>{title}</Text>
-    <Text style={styles.subtitle}>{subtitle}</Text>
+    <FastImage
+      source={image}
+      style={styles.image}
+      resizeMode={FastImage.resizeMode.cover}
+    />
+    {/* <Text style={styles.title}>{title}</Text>
+    <Text style={styles.subtitle}>{subtitle}</Text> */}
   </View>
 );
 
 const styles = StyleSheet.create({
   slide: {
-    width: wp('100%'),
-    alignItems: 'center',
-    paddingHorizontal: wp('8%'),
+    flex: 1,
   },
   image: {
-    width: wp('80%'),
-    height: hp('35%'),
-    marginBottom: hp('4%'),
+    width: wp('100%'),
+    height: hp('100%'),
   },
   title: {
     fontFamily: fontFamily.bold,

@@ -23,12 +23,15 @@ interface InputProps extends TextInputProps {
   leftIcon?: string;
   rightIcon?: string;
   onRightIconPress?: () => void;
+  variant?: 'outline' | 'filled';
 }
 
 export const Input = React.forwardRef<TextInput, InputProps>(
-  ({ label, error, isPassword, leftIcon, rightIcon, onRightIconPress, style, ...rest }, ref) => {
+  ({ label, error, isPassword, leftIcon, rightIcon, onRightIconPress, variant = 'outline', style, ...rest }, ref) => {
     const [focused, setFocused] = useState(false);
     const [secure, setSecure] = useState(!!isPassword);
+
+    const isFilled = variant === 'filled';
 
     return (
       <View style={styles.wrapper}>
@@ -36,12 +39,18 @@ export const Input = React.forwardRef<TextInput, InputProps>(
         <View
           style={[
             styles.inputContainer,
-            { borderColor: error ? colors.error : focused ? colors.primary : colors.border },
+            isFilled
+              ? {
+                  borderWidth: 0,
+                  backgroundColor: colors.backgroundSecondary,
+                }
+              : { borderColor: error ? colors.error : focused ? colors.primary : colors.border },
           ]}
         >
           {leftIcon ? (
             <Icon name={leftIcon} size={wp('5%')} color={colors.textSecondary} style={styles.iconLeft} />
           ) : null}
+
           <TextInput
             ref={ref}
             style={[styles.input, style]}
@@ -82,8 +91,11 @@ const styles = StyleSheet.create({
     marginBottom: hp('2%'),
   },
   label: {
-    fontFamily: fontFamily.medium,
-    fontSize: fontSize.sm,
+    fontFamily: fontFamily.gilroyRegular,
+    fontWeight: '400',
+    fontSize: 14,
+    lineHeight: 14,
+    letterSpacing: 14 * -0.04,
     color: colors.textPrimary,
     marginBottom: hp('0.8%'),
   },
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: radius.md,
-    height: hp('6.5%'),
+    height: hp('5.5%'),
     paddingHorizontal: wp('4%'),
     backgroundColor: colors.white,
   },

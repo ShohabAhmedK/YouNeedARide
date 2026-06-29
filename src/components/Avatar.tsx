@@ -17,8 +17,8 @@ interface AvatarProps {
 }
 
 const sizeMap: Record<Size, number> = {
-  sm: wp('10%'),
-  md: wp('14%'),
+  sm: wp('8%'),
+  md: wp('12%'),
   lg: wp('22%'),
 };
 

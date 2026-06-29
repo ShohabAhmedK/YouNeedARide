@@ -1,7 +1,6 @@
 export enum Routes {
   SPLASH = 'Splash',
   ONBOARDING = 'Onboarding',
-  ROLE_SELECT = 'RoleSelect',
   LOGIN = 'Login',
   REGISTER = 'Register',
   FORGOT_PASSWORD = 'ForgotPassword',

@@ -25,7 +25,7 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   style,
 }) => {
   const content = (
-    <SafeAreaView style={[styles.container, { backgroundColor }, style]}>
+    <SafeAreaView style={[styles.container, { backgroundColor }, style]} edges={['top']} >
       <StatusBar barStyle={statusBarStyle} backgroundColor={backgroundColor} />
       {children}
     </SafeAreaView>
