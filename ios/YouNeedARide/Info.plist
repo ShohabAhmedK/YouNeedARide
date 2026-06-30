@@ -54,6 +54,14 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>GOOGLE_MAPS_API_KEY</key>
+	<string>YOUR_GOOGLE_MAPS_API_KEY</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>MaterialIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>Ionicons.ttf</string>
+	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
