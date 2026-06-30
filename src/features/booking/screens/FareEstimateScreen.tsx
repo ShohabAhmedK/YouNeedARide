@@ -36,7 +36,7 @@ export const FareEstimateScreen: React.FC = () => {
   let FindingDriver = require('../../../assets/icons/finding.png');
 
   const handleFindDrivers = () => {
-    navigation.navigate('FindingDriver', { rideId: '1' });
+    navigation.replace('FindingDriver', { rideId: '1' });
   };
 
   useEffect(() => {

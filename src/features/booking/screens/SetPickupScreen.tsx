@@ -22,12 +22,12 @@ export const SetPickupScreen: React.FC = () => {
 
   const handleSelectSaved = (location: SavedLocation) => {
     setPickup({ latitude: location.latitude, longitude: location.longitude, address: location.address, label: location.label });
-    navigation.navigate('SetDestination', { pickup: { latitude: location.latitude, longitude: location.longitude, address: location.address } });
+    navigation.replace('SetDestination', { pickup: { latitude: location.latitude, longitude: location.longitude, address: location.address } });
   };
 
   const handleConfirm = () => {
     setPickup({ latitude: 37.7749, longitude: -122.4194, address });
-    navigation.navigate('SetDestination', { pickup: { latitude: 37.7749, longitude: -122.4194, address } });
+    navigation.replace('SetDestination', { pickup: { latitude: 37.7749, longitude: -122.4194, address } });
   };
 
   return (
