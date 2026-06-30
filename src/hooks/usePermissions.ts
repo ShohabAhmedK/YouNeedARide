@@ -24,15 +24,15 @@ export const checkLocationPermission = async (): Promise<boolean> => {
   return true;
 };
 
-export const requestNotificationPermission = async (): Promise<boolean> => {
-  try {
-    const messaging = require('@react-native-firebase/messaging').default;
-    const authStatus = await messaging().requestPermission();
-    return (
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL
-    );
-  } catch (e) {
-    return false;
-  }
-};
+// export const requestNotificationPermission = async (): Promise<boolean> => {
+//   try {
+//     const messaging = require('@react-native-firebase/messaging').default;
+//     const authStatus = await messaging().requestPermission();
+//     return (
+//       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+//       authStatus === messaging.AuthorizationStatus.PROVISIONAL
+//     );
+//   } catch (e) {
+//     return false;
+//   }
+// };

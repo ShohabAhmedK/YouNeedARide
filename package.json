@@ -12,8 +12,6 @@
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@react-native-async-storage/async-storage": "^3.1.1",
-    "@react-native-firebase/app": "^24.1.1",
-    "@react-native-firebase/messaging": "^24.1.1",
     "@react-native/new-app-screen": "0.86.0",
     "@react-navigation/bottom-tabs": "^7.18.2",
     "@react-navigation/native": "^7.3.3",
@@ -28,12 +26,12 @@
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^3.0.2",
     "react-native-maps": "^1.27.2",
-    "react-native-reanimated": "^4.4.1",
+    "react-native-reanimated": "4.4.1",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^5.8.0",
     "react-native-screens": "^4.25.2",
     "react-native-vector-icons": "^10.3.0",
-    "react-native-worklets": "^0.9.2",
+    "react-native-worklets": "0.9.2",
     "socket.io-client": "^4.8.3",
     "zod": "^4.4.3",
     "zustand": "^5.0.14"
@@ -60,5 +58,6 @@
   },
   "engines": {
     "node": ">= 22.11.0"
-  }
+  },
+  "packageManager": "yarn@3.6.4+sha512.e70835d4d6d62c07be76b3c1529cb640c7443f0fe434ef4b6478a5a399218cbaf1511b396b3c56eb03bc86424cff2320f6167ad2fde273aa0df6e60b7754029f"
 }

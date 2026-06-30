@@ -26,7 +26,7 @@ export const HomeMapScreen: React.FC = () => {
   const rider = useAuthStore(s => s.rider);
 
   const goToDestination = () =>
-    navigation.navigate('SetDestination', { pickup: PICKUP_COORDS });
+    navigation.replace('SetDestination', { pickup: PICKUP_COORDS });
 
   return (
     <View style={styles.container}>
