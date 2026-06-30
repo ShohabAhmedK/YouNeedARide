@@ -50,7 +50,6 @@ export const Input = React.forwardRef<TextInput, InputProps>(
           {leftIcon ? (
             <Icon name={leftIcon} size={wp('5%')} color={colors.textSecondary} style={styles.iconLeft} />
           ) : null}
-
           <TextInput
             ref={ref}
             style={[styles.input, style]}

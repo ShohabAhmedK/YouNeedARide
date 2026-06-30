@@ -143,11 +143,12 @@ const styles = StyleSheet.create({
   changePhotoButton: {
     backgroundColor: colors.primary,
     borderRadius: radius.round,
-    paddingHorizontal: wp('8%'),
-    paddingVertical: hp('1.3%'),
+    width: '80%',
+    paddingVertical: hp('1.6%'),
     marginTop: hp('2%'),
     marginBottom: hp('3%'),
     alignSelf: 'center',
+    alignItems: 'center',
   },
   changePhotoText: {
     fontFamily: fontFamily.semiBold,

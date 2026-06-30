@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import {
   View,
+  TouchableOpacity,
   FlatList,
   StyleSheet,
   NativeSyntheticEvent,
@@ -8,33 +9,37 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { ScreenWrapper } from '../../../components/ScreenWrapper';
-import { Button } from '../../../components/Button';
 import { OnboardingSlide } from '../components/OnboardingSlide';
 import { PaginationDots } from '../components/PaginationDots';
 import { AuthStackParamList } from '../../../types/navigation';
+import { colors } from '../../../theme/colors';
+import { radius } from '../../../theme/spacing';
 
 type Nav = StackNavigationProp<AuthStackParamList, 'Onboarding'>;
 
 const slides = [
   {
     image: require('../../../assets/images/onboarding1.png'),
-    title: 'Ride With Ease',
-    subtitle: 'Book a ride in seconds and get matched with nearby drivers.',
+    title: 'Travel Your Way\nRelax in a Luxurious Ride',
+    subtitle:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
   },
   {
     image: require('../../../assets/images/onboarding2.png'),
-    title: 'Track In Real Time',
-    subtitle: 'Watch your driver arrive and follow your trip live on the map.',
+    title: 'Travel Your Way\nRelax in a Luxurious Ride',
+    subtitle:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
   },
   {
     image: require('../../../assets/images/onboarding3.png'),
-    title: 'Earn Rewards',
-    subtitle: 'Get loyalty discounts the more you ride with us.',
+    title: 'Are you a Rider or Driver',
+    subtitle: 'Please select your type to continue',
   },
 ];
 
@@ -51,13 +56,14 @@ export const OnboardingScreen: React.FC = () => {
   const handleNext = () => {
     if (activeIndex < slides.length - 1) {
       listRef.current?.scrollToIndex({ index: activeIndex + 1 });
+      setActiveIndex(activeIndex + 1);
     } else {
       navigation.replace('Login');
     }
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.root}>
       <FlatList
         ref={listRef}
         data={slides}
@@ -74,44 +80,44 @@ export const OnboardingScreen: React.FC = () => {
           />
         )}
       />
-      <View style={styles.footer}>
+      <View style={styles.bottomBar}>
         <PaginationDots total={slides.length} activeIndex={activeIndex} />
-        <View style={styles.buttonRow}>
-          <Button
-            title="Skip"
-            variant="ghost"
-            onPress={() => navigation.replace('Login')}
-            style={styles.skipButton}
-          />
-          <Button
-            title={activeIndex === slides.length - 1 ? 'Get Started' : 'Next'}
-            onPress={handleNext}
-            style={styles.nextButton}
-          />
-        </View>
+        <TouchableOpacity
+          style={styles.arrowButton}
+          onPress={handleNext}
+          accessibilityLabel={activeIndex === slides.length - 1 ? 'Get Started' : 'Next slide'}
+        >
+          <Icon name="arrow-forward" size={wp('6%')} color={colors.white} />
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  footer: {
-    paddingHorizontal: wp('6%'),
-    paddingBottom: hp('3%'),
-    position: 'absolute',
-    width: '100%',
-    bottom: 0,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: hp('3%'),
-  },
-  skipButton: {
+  root: {
     flex: 1,
-    marginRight: wp('2%'),
+    backgroundColor: '#000',
   },
-  nextButton: {
-    flex: 2,
+  bottomBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: hp('15%'),
+    backgroundColor: '#000',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: wp('7%'),
+    paddingBottom: hp('3%'),
+  },
+  arrowButton: {
+    width: wp('14%'),
+    height: wp('14%'),
+    borderRadius: radius.lg,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

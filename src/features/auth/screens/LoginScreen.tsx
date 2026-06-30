@@ -104,7 +104,6 @@ export const LoginScreen: React.FC = () => {
             />
           )}
         />
-
         <Controller
           control={control}
           name="password"
