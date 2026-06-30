@@ -37,7 +37,7 @@ export const SetDestinationScreen: React.FC = () => {
 
   const goNext = (destination: { latitude: number; longitude: number; address?: string; label?: string }) => {
     setDestination(destination);
-    navigation.navigate('ConfirmAddress', {
+    navigation.replace('ConfirmAddress', {
       pickup: { ...route.params.pickup, address: from },
       destination,
     });

@@ -53,7 +53,7 @@ export const ConfirmAddressScreen: React.FC = () => {
   }, []);
 
   const handleContinue = () => {
-    navigation.navigate('FareEstimate', {
+    navigation.replace('FareEstimate', {
       pickup: { ...pickup, notes },
       destination,
     });
